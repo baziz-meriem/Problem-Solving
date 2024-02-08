@@ -1,0 +1,9 @@
+def list_comp(x,y,z,n):
+    
+    all_permutations = [[val_x,val_y,val_z] for val_x in range(0,x+1) \
+    for val_y in range(0,y+1) for val_z in range(0,z+1)]
+    
+    out = sorted([perm for perm in all_permutations \
+    if sum(perm) != n])
+    
+    return out 
