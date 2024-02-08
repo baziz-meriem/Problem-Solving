@@ -1,0 +1,38 @@
+from collections import namedtuple
+
+def second_lowest(lst):
+    
+    min_score = 100
+    std_min_names = []
+    for std in lst :
+        if std.score < min_score:
+            min_score = std.score
+ 
+    lst = [std for std in lst if std.score != min_score]
+            
+    min_score = 100
+          
+    for std in lst :
+        if std.score < min_score:
+            min_score = std.score   
+                 
+    for std in lst:
+        if std.score == min_score:
+            std_min_names.append(std.name)
+    
+    for name in sorted(std_min_names):
+        print(name)
+    
+
+
+if __name__ == '__main__':
+    N = int(input())
+    Student = namedtuple('Student','name,score')
+    lst = []
+    for _ in range(N):
+        name = input()
+        score = float(input())
+        lst.append(Student(name,score))
+        
+    second_lowest(lst)
+    
