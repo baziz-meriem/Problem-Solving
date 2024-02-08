@@ -1,0 +1,37 @@
+def list_com(commands):
+    arr =[]
+    for com in commands:
+        if "insert" in com:
+             i = int(com.split()[1])
+             e = int(com.split()[2])
+             arr.insert(i,e)
+             
+        elif com=="print":
+            print(arr)
+            
+        elif "remove" in com:
+            e = int(com.split(" ")[1])
+            arr.remove(e)
+            
+        elif "append" in com:
+            e = int(com.split(" ")[1])
+            arr.append(e)
+            
+        elif com=="sort":
+            arr.sort()
+            
+        elif com=="pop":
+            arr.pop()
+            
+        else:
+            arr = arr[::-1]
+
+
+
+
+
+
+if __name__ == '__main__':
+    N = int(input())
+    commands = [input() for idx in range(0,N)]
+    list_com(commands)
