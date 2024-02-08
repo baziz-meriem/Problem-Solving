@@ -1,0 +1,12 @@
+ef runner_up(arr):
+    
+    arr = [val for val in arr if val!= max(arr)]
+    print(max(arr))
+
+
+
+
+if __name__ == '__main__':
+    n = int(input())
+    arr = map(int, input().split())
+    runner_up(list(arr))
