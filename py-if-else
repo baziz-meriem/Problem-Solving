@@ -1,0 +1,16 @@
+import math
+import os
+import random
+import re
+import sys
+
+def function(n):
+    output = \
+    "Not Weird" if n%2==0 and n in range(2,6) \
+    else "Not Weird" if n%2 ==0 and n > 20 \
+    else "Weird"
+    print(output)
+
+if __name__ == '__main__':
+    n = int(input().strip())
+    function(n)
