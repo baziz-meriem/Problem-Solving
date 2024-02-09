@@ -1,0 +1,27 @@
+
+def isSubset( a1, a2, n, m):
+    
+    a1_dict = {}
+    a2_dict = {}
+    
+    for val in a1:
+        if val in a1_dict:
+            a1_dict [val]+=1
+        else:
+            a1_dict[val] = 1
+            
+    for val in a2:    
+        if val in a2_dict:
+            a2_dict [val]+=1
+        else:
+            a2_dict[val] = 1   
+            
+    for key,val in a2_dict.items():
+        if not (key in a1_dict and a2_dict[key] <= a1_dict[key]):
+            return "No"
+            
+    return "Yes"
+        
+        
+
+
