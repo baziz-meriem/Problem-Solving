@@ -1,0 +1,26 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+from sys import stdin
+
+def get_phone_numbers(contact_name,phones_dict):
+    
+    if contact_name not in phones_dict.keys():
+        print("Not found")
+    else:
+        phone_num = phones_dict[contact_name]
+        print(contact_name+"="+ phone_num)
+    
+if __name__=="__main__":
+    
+    lines = int(input())
+    phones_dict ={}
+    for line in range(0,lines):
+        #get the contact information
+        name,phone_number = input().split()
+        #create the phones dict
+        if name not in phones_dict.keys():
+            phones_dict[name]=phone_number
+            
+    contact_name = input()
+    while contact_name :
+        get_phone_numbers(contact_name,phones_dict)
+        contact_name=stdin.readline().strip()
