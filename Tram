@@ -1,0 +1,9 @@
+trams_stops = int(input())
+total = 0
+max = 0
+for _ in range(0,trams_stops):
+    getting_out,entering = map(int,input().split())
+    total += entering - getting_out
+    if total > max:
+        max = total
+print(max)
