@@ -1,0 +1,8 @@
+n, k = map(int, input().split())
+
+for _ in range(k+1):
+    if n % 10 == 0:
+        n //= 10  # Use integer division to remove the last digit
+    else:
+        n -= 1
+print(n)
