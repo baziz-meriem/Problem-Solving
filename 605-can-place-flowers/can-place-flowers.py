@@ -1,19 +1,11 @@
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        empty_spaces = 0
-        taken = True
-
-        for plot in flowerbed:
-            if plot == 0 and bool(plot) != taken:
-                empty_spaces += 1
-                taken = not taken
-
-            elif plot==1 and not taken:
-                empty_spaces -= 1
-            else:
-                 taken = not taken
-            
-
-
-        return empty_spaces >= n
-        
+        if n == 0:
+            return True
+        for i in range(len(flowerbed)):
+            if flowerbed[i] == 0 and (i == 0 or flowerbed[i-1] == 0) and (i == len(flowerbed)-1 or flowerbed[i+1] == 0):
+                flowerbed[i] = 1
+                n -= 1
+                if n == 0:
+                    return True
+        return False
