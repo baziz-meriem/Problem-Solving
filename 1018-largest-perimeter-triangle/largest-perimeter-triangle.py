@@ -1,10 +1,18 @@
 class Solution:
-    def largestPerimeter(self, nums: List[int]) -> int: # nums = [3,6,2,3]
-            # condition to create a triangle a < (b + c). where  a >= b >= c
-            nums = sorted(nums, reverse=True) # nums after sorting = [6, 3, 3, 2]
-            for i in range(len(nums)-2):
-                if nums[i] < nums[i+1] +nums[i+2]: # When i =1 => 3 < 3+2 (True)
-                    return nums[i]+nums[i+1] +nums[i+2] # 3 + 3 + 2 = 8
-            return 0
+    def largestPerimeter(self, nums: List[int]) -> int:
+        
+        all_sides =[]
+        max_sum = 0
+        idx = 0
+        nums = sorted(nums,reverse=True)
+        while idx+2 < len(nums):
+            all_sides = nums[idx:idx+3]
+           
+            if sum(all_sides[:-1]) > all_sides[-1] and sum(all_sides[-2:]) > all_sides[0] and all_sides[-1]+all_sides[0] > all_sides[1]:
+                if sum(all_sides) > max_sum:
+                    max_sum = sum(all_sides)
+                
+            idx += 1
+        return max_sum
         
         
