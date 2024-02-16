@@ -1,14 +1,26 @@
 class OrderedStream:
-
+    
     def __init__(self, n: int):
-        self.stream=[None]*n
-        self.ptr=0
+        self.n = n
+        self.stream_dict = defaultdict(int)
+
 
     def insert(self, idKey: int, value: str) -> List[str]:
-        idKey-=1
-        self.stream[idKey]=value
-        if idKey>self.ptr:
-            return []
-        while self.ptr<len(self.stream) and self.stream[self.ptr]:
-            self.ptr+=1
-        return self.stream[idKey:self.ptr]
+        chunk =[]
+        self.stream_dict[idKey] = value
+        print('content of stream dict',self.stream_dict[idKey-1])
+        if idKey==1 or self.stream_dict[idKey-1] == -1:#if Im the first element or the element before me is already printed
+            
+            while self.stream_dict[idKey] != 0:
+                
+                chunk.append(self.stream_dict[idKey])
+                self.stream_dict[idKey]  = -1 #to indicate that it was already appended
+                idKey += 1
+        print(chunk)
+        return chunk
+        
+
+
+# Your OrderedStream object will be instantiated and called as such:
+# obj = OrderedStream(n)
+# param_1 = obj.insert(idKey,value)
