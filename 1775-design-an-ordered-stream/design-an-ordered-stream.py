@@ -8,7 +8,6 @@ class OrderedStream:
     def insert(self, idKey: int, value: str) -> List[str]:
         chunk =[]
         self.stream_dict[idKey] = value
-        print('content of stream dict',self.stream_dict[idKey-1])
         if idKey==1 or self.stream_dict[idKey-1] == -1:#if Im the first element or the element before me is already printed
             
             while self.stream_dict[idKey] != 0:
@@ -16,7 +15,7 @@ class OrderedStream:
                 chunk.append(self.stream_dict[idKey])
                 self.stream_dict[idKey]  = -1 #to indicate that it was already appended
                 idKey += 1
-        print(chunk)
+
         return chunk
         
 
