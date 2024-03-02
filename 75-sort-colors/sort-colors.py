@@ -4,12 +4,9 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        colors_count = Counter(nums)
-
-        new_list=[]
-        for idx in range(3):
-            new_list.extend([idx]*colors_count[idx])
-        for idx,num in enumerate(nums):
-            nums[idx] = new_list[idx]
-       
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                if nums[i]>nums[j]:
+                    nums[i], nums[j] = nums[j],nums[i] 
+        return nums
         
