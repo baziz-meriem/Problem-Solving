@@ -1,13 +1,13 @@
 class Solution:
     def backspaceCompare(self, s: str, t: str) -> bool:
-        def rem_(st: str):
-            while '#' in st:
-                a = st.index('#')
+        def remove(string):
+            while '#' in string:
+                a = string.index('#')
                 if a == 0:
-                    st = st[1:]
+                    string = string[1:]
                 else:
-                    st = st[:a-1] + st[a+1:]
-            return st
+                    string = string[:a-1] + string[a+1:]
+            return string
         
-        s, t = rem_(s), rem_(t)
+        s, t = remove(s), remove(t)
         return s == t
