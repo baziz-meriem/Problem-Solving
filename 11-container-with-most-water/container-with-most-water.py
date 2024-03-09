@@ -4,7 +4,7 @@ class Solution:
         end_idx = len(height)-1
         max_content = 0
 
-        while start_idx<len(height) and end_idx>-1:
+        while start_idx != end_idx:
             current_content =  min(height[start_idx],height[end_idx])*(end_idx-start_idx)
             if current_content > max_content:
                 max_content = current_content
