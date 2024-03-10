@@ -3,7 +3,10 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
-        k = k % n  # Ensure k is within the range of the list length
-        
-        nums[:] = nums[-k:] + nums[:-k]  # Rotate the list in place
+        prev_l = len(nums)
+        k = k % prev_l
+        nums.extend(nums[:-k])
+
+        print(nums)
+        l = len(nums) - prev_l
+        del nums[:l]
