@@ -1,29 +1,24 @@
+from typing import List
+
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        current = 0
-        idx = 0
+        write_idx = 0
+        read_idx = 0
 
-        while idx <len(chars)-1:
-            if chars[idx] == chars[idx+1]:
-                index = idx + 1
-                current += 1
+        while read_idx < len(chars):
+            current_char = chars[read_idx]
+            count = 0
 
-                while index <= len(chars)-1 and chars[index] == chars[idx] :
-                    print(index)
-                    
-                    index += 1
-                    current += 1
-                
-                del chars[idx+1:index]
+            while read_idx < len(chars) and chars[read_idx] == current_char:
+                read_idx += 1
+                count += 1
 
-                if current>1:
-                    chars[idx] += str(current)
-                current = 0
+            chars[write_idx] = current_char
+            write_idx += 1
 
-                
-            idx += 1
-            
-        chars[:] = [item for sublist in chars for item in sublist ]
-            
+            if count > 1:
+                for digit in str(count):
+                    chars[write_idx] = digit
+                    write_idx += 1
 
-        return len(chars)
+        return write_idx
