@@ -11,8 +11,8 @@ class Solution:
             if res[1] >= res[0]:
                 intersect.append(res)
 
-            next_start_first = firstList[first_idx][1] if first_idx < len(firstList) - 1 else float('inf')
-            next_start_second = secondList[second_idx][1] if second_idx < len(secondList) - 1 else float('inf')
+            next_start_first = firstList[first_idx + 1][0] if first_idx < len(firstList) - 1 else float('inf')
+            next_start_second = secondList[second_idx + 1][0] if second_idx < len(secondList) - 1 else float('inf')
 
             if next_start_first < next_start_second:
                 first_idx += 1
