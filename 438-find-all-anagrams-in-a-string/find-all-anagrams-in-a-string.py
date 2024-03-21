@@ -1,22 +1,34 @@
+from collections import Counter
 class Solution:
-    def findAnagrams(self, s2: str, s1: str) -> list[int]:
-        n1, n2 = len(s1), len(s2)
-        c1, c2 = Counter(s1), Counter(islice(s2, n1))
-        
-        eq_count = sum(c1[ch] == c2[ch] for ch in c1)
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        window = len(p)
+        p = Counter(p)
+        pointer = 0
+        current_dict = {}
+        output = []
+        if window> len(s):
+            return []
+        for idx in range(window):
+            if s[idx] in current_dict.keys():
+                current_dict[s[idx]] += 1
+            else:
+                current_dict[s[idx]] = 1
+        if current_dict == p:
+                output.append(0)
+        for idx in range(1,len(s) - window+1):
+            current_dict[s[idx-1]] -= 1
 
-        starts = [0] if eq_count == len(c1) else []
-        for i in range(n1, n2):
-            fst, lst = s2[i - n1], s2[i]
+            if s[idx + window-1] in current_dict.keys():
+                current_dict[s[idx + window-1]] += 1
+            else:
+                current_dict[s[idx + window-1]] = 1
 
-            if c1[lst] and c2[lst] == c1[lst]: eq_count -= 1
-            c2[lst] += 1
-            if c1[lst] and c2[lst] == c1[lst]: eq_count += 1
+            
+            current_dict = { key:val for key,val in current_dict.items() if val!=0 }
+            #print(current_dict)
+            if current_dict == p:
+                output.append(idx)
 
-            if c1[fst] and c2[fst] == c1[fst]: eq_count -= 1
-            c2[fst] -= 1
-            if c1[fst] and c2[fst] == c1[fst]: eq_count += 1
+        return output
 
-            if eq_count == len(c1): starts.append(i - n1 + 1)
 
-        return starts
