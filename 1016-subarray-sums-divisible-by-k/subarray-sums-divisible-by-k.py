@@ -8,10 +8,8 @@ class Solution:
             running_sum_mod_k = (running_sum_mod_k + num) % k
             if running_sum_mod_k in nums_dict:
                 tot_subarrays += nums_dict[running_sum_mod_k]
-            
-            if running_sum_mod_k not in nums_dict:
-                nums_dict[running_sum_mod_k] = 1
-            else:
                 nums_dict[running_sum_mod_k] += 1
-        
+            else:
+                nums_dict[running_sum_mod_k] = 1
+
         return tot_subarrays
