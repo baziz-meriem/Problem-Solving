@@ -13,7 +13,4 @@ class Solution:
             if idx>0:
                 booked_flights[idx] += booked_flights[idx-1]  
             
-        #print(booked_flights)
-        for seats in booked_flights:
-            flights.append(seats)
-        return flights
+        return booked_flights
