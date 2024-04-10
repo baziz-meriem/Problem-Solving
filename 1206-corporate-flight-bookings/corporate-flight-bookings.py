@@ -8,9 +8,5 @@ class Solution:
             if last <n:
                 booked_flights[last] -= seats
        
-        #print(booked_flights)
-        for idx in range(len(booked_flights)):
-            if idx>0:
-                booked_flights[idx] += booked_flights[idx-1]  
             
-        return booked_flights
+        return list(accumulate(booked_flights))
