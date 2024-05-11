@@ -8,13 +8,11 @@ class Solution:
         max_val = n-1
         while min_val<=max_val:
             mid_point = (min_val + max_val)//2
-            out = isBadVersion(mid_point)
             
-            if out==True:
+            if isBadVersion(mid_point):
                 max_val = mid_point - 1
 
-            elif out==False and isBadVersion(mid_point+1):
-                return mid_point+1
-            elif out==False:
+            elif not isBadVersion(mid_point):
                 min_val = mid_point + 1
-        
+
+        return min_val
