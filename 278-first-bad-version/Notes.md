@@ -1,1 +1,1 @@
-<h2>first-bad-version Notes</h2><hr>[ Time taken: 22 m 34 s ]
+<h2>first-bad-version Notes</h2><hr>[ Time taken: 10 m 18 s ]
