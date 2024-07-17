@@ -1,23 +1,14 @@
 class Solution:
-
-    def dfs(self, node, graph, vis, destination):
-        if node==destination:
-            return True
-        vis[node] = True
-        for neighbor in graph[node]:
-            if not vis[neighbor]:
-                if self.dfs(neighbor, graph, vis, destination):
-                    return True
-        return False
-
-
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        graph = defaultdict(list)
-
-        for src, dst in edges:
-            graph[src].append(dst)
-            graph[dst].append(src)
-        
-        vis = [False]*n
-        return self.dfs(source, graph, vis, destination)
-        
+        def rec(node,g,vis):
+            vis[node]=1
+            for i in g[node]:
+                if not vis[i]:
+                    rec(i,g,vis)
+        g=[[] for _ in range(n)]
+        for i in edges:
+            g[i[0]].append(i[1])
+            g[i[1]].append(i[0])
+        vis=[0 for i in range(n)]
+        rec(source,g,vis)
+        return vis[destination]
