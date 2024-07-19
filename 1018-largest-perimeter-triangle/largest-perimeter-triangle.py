@@ -5,7 +5,7 @@ class Solution:
         nums = sorted(nums,reverse=True)
         while idx+2 < len(nums):
            
-            if sum(nums[idx:idx+3][-2:]) > nums[idx:idx+3][0] :
+            if sum(nums[idx+1:idx+3])> nums[idx]:
                 max_sum = sum(nums[idx:idx+3])
                 return max_sum
                 
