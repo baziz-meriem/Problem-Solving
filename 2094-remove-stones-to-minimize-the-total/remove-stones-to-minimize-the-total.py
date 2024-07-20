@@ -1,17 +1,13 @@
+import heapq
 class Solution:
     def minStoneSum(self, piles: List[int], k: int) -> int:
-
-        # Construct frequency table
-        count = [0 for x in range(max(piles)+1)]
-        for x in piles: count[x] += 1
-
-        # Perform pile-halving
-        for _ in range(k):
-            count[-1] -= 1
-            count[len(count) // 2] += 1
-
-            # Remove empty piles from top, to ensure top pile has any stones
-            while count[-1] == 0: count.pop()
+        maxHeap = [-pile for pile in piles]
+        heapq.heapify(maxHeap)
         
-        # Count remainder
-        return sum(i * count[i] for i in range(len(count)))
+        for _ in range(k):
+            pile = -heapq.heappop(maxHeap)
+            pile -= pile//2
+            heapq.heappush(maxHeap,-pile)
+
+        total_sum = -sum(maxHeap)
+        return total_sum
