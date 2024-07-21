@@ -1,22 +1,22 @@
-from typing import List
-
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        if sum(gas) < sum(cost):
+        total_gas = 0
+        total_cost = 0
+        current_gas = 0
+        start_index = 0
+        
+        for i in range(len(gas)):
+            total_gas += gas[i]
+            total_cost += cost[i]
+            current_gas += gas[i] - cost[i]
+            
+            # If current gas becomes negative, reset the starting index and current gas
+            if current_gas < 0:
+                start_index = i + 1
+                current_gas = 0
+        
+        # After the loop, check if we have enough gas to cover the total cost
+        if total_gas >= total_cost:
+            return start_index
+        else:
             return -1
-        gasCost = [(gas[i], cost[i], i) for i in range(len(gas))]
-        gasCost.sort(key=lambda tup: tup[0], reverse=True)
-        
-        # Try the best starting index from the sorted list
-        for _, _, start in gasCost:
-            current_gas = 0
-            n = len(gas)
-            for i in range(start, start + n):
-                idx = i % n
-                current_gas += gas[idx] - cost[idx]
-                if current_gas < 0:
-                    break
-            else:
-                return start
-        
-        return -1
