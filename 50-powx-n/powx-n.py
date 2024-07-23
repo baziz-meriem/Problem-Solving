@@ -1,14 +1,12 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
-        def helper(n, p):
-            if p==0 or n==1: return 1
-            if p<0: return 1/helper(n, -p)
-            rs = helper(n*n, p//2)
-            return rs * n if p&1 else rs
-        return helper(x, n)
-        
-        
-            
-            
-        
-            
+        if n==0:
+            return 1
+        elif n==1:
+            return x
+        elif n<0:
+            return 1/self.myPow(x,-n)
+        if n%2==0:
+            half_power = self.myPow(x,n//2)
+            return half_power*half_power
+        return x*self.myPow(x,n-1)
