@@ -1,13 +1,20 @@
 class Solution:
-    def __init__(self):
-        self.memo = {}
-
     def getRow(self, rowIndex: int) -> List[int]:
-        if rowIndex in self.memo:
-            return self.memo[rowIndex]
-        elif rowIndex == 0:
-            return [1]
+        rowList =[]
+        
+        if rowIndex==0:
+            rowList.append(1)
+            return rowList
+        elif rowIndex==1:
+            rowList.extend([1,1])
+            return rowList
+        
         else:
-            previous_content = self.getRow(rowIndex-1)
-            row_content = [ x+y for x,y in zip([0]+previous_content,previous_content+[0])]
-            return row_content
+            myList = self.getRow(rowIndex-1)
+            rowList.append(1)
+            for idx in range(1,rowIndex):
+                rowList.append(myList[idx-1]+ myList[idx])
+
+            rowList.append(1)
+        return rowList
+       
