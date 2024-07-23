@@ -1,23 +1,28 @@
+from collections import deque
 class Solution:
-    def continuousSubarrays(self, nums: List[int]) -> int:      
-        queue_max, queue_min = deque(), deque()
-        left, prev_max, prev_min, ans = 0, 0, 0, 0
-        for i, num in enumerate(nums):
-            while queue_max and nums[queue_max[0]] - num > 2:
-                prev_max = queue_max.popleft()
-            while queue_max and num > nums[queue_max[-1]]:
-                queue_max.pop()
-            queue_max.append(i)
+    def continuousSubarrays(self, nums: List[int]) -> int:
+        min_queu = deque()
+        max_queu = deque()
+        numSub = 0
+        l = 0
+        for r,v in enumerate(nums):
+            #update the queues
+            while max_queu and max_queu[-1][1]<=v:
+                max_queu.pop()
+            max_queu.append([r,v])
 
-            while queue_min and num - nums[queue_min[0]] > 2:
-                prev_min = queue_min.popleft()    
-            while queue_min and num < nums[queue_min[-1]]:
-                queue_min.pop()
-            queue_min.append(i)
-        
-            if nums[prev_max] - num > 2:
-                left = queue_max[0]
-            elif num - nums[prev_min] > 2:
-                left = queue_min[0]
-            ans += i - left + 1      
-        return ans
+            while min_queu and min_queu[-1][1]>=v:
+                min_queu.pop()
+            min_queu.append([r,v])
+            
+           
+            #caculate the subarrays
+            while max_queu[0][1] - min_queu[0][1] >2:
+                if max_queu[0][0] == l:
+                    max_queu.popleft()
+                if min_queu[0][0] == l:
+                    min_queu.popleft()
+                l += 1 
+
+            numSub += r-l+1
+        return numSub
