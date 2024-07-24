@@ -1,29 +1,33 @@
 class Solution:
     def sumSubarrayMins(self, arr: List[int]) -> int:
         n = len(arr)
-        left = [-1] * n 
-        right = [n] * n
+        prevSmall=[-1]*n
+        nextSmall=[n]* n
         stack = []
+        sumSubarrays  = 0
 
-        for i, value in enumerate(arr):
-            while stack and arr[stack[-1]] >= value:  
-                stack.pop()  
+        for idx,val in enumerate(arr):
+            while stack and arr[stack[-1]]>=val:
+                stack.pop()
+            
             if stack:
-                left[i] = stack[-1]  
-            stack.append(i) 
+                prevSmall[idx] = stack[-1]
+            stack.append(idx)
+        stack.clear()
 
-        stack = [] 
-
-        
-        for i in range(n - 1, -1, -1):  
-            while stack and arr[stack[-1]] > arr[i]: 
-                stack.pop()  
+        for idx in range(n-1,-1,-1):
+            while stack and arr[stack[-1]]>arr[idx]:
+                stack.pop()
+            
             if stack:
-                right[i] = stack[-1]  
-            stack.append(i) 
+                nextSmall[idx] = stack[-1]
+            stack.append(idx)
 
-        mod = 10**9 + 7 
+        modulo = 10**9 + 7 
 
-        result = sum((i - left[i]) * (right[i] - i) * value for i, value in enumerate(arr)) % mod
-      
-        return result 
+        for i in range(n):
+            left_count = i - prevSmall[i]
+            right_count = nextSmall[i] - i
+            sumSubarrays += left_count * right_count * arr[i]
+            sumSubarrays %= modulo
+        return sumSubarrays
