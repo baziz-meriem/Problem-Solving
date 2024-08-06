@@ -14,6 +14,7 @@ class Solution:
             
             rob_current = nums[index] + helper(index - 2, memo)
             skip_current = helper(index - 1, memo)
+
             memo[index] = max(rob_current, skip_current)
             return memo[index]
         
