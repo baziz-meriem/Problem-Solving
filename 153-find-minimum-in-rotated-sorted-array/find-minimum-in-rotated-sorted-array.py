@@ -1,3 +1,5 @@
+import heapq
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        return min(nums)
+        heapq.heapify(nums)
+        return nums[0]
