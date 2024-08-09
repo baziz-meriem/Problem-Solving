@@ -1,25 +1,33 @@
 class Solution:
-    def isAdditiveNumber(self, num: str) -> bool:
-        n = len(num)
+    def isAdditiveNumber(self,num):
+        def backtrack(index, num1, num2):
 
-        def has_leading_zeros(s):
-            return len(s) > 1 and s[0] == '0'
+            if index == len(num):
+                return True
+            
+            next_num = str(int(num1) + int(num2))
+
+            if not num.startswith(next_num, index):
+                return False
+            
+            # Move the index to the end of the current valid number
+            next_index = index + len(next_num)
+            
+            return backtrack(next_index, num2, next_num)
+        
+        n = len(num)
 
         for i in range(1, n):
             for j in range(i + 1, n):
-                num1, num2 = num[:i], num[i:j]
-
-                if has_leading_zeros(num1) or has_leading_zeros(num2):
+                num1 = num[:i]
+                num2 = num[i:j]
+                
+                # Skip invalid numbers with leading zeros
+                if (num1.startswith('0') and len(num1) > 1) or (num2.startswith('0') and len(num2) > 1):
                     continue
-
-                while j < n:
-                    sum_str = str(int(num1) + int(num2))
-                    if not num.startswith(sum_str, j):
-                        break
-                    j += len(sum_str)
-                    num1, num2 = num2, sum_str
-
-                if j == n:
+                
+                # Start the backtracking search with the current pair
+                if backtrack(j, num1, num2):
                     return True
-
+        
         return False
