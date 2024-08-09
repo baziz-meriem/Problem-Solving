@@ -1,27 +1,21 @@
+from typing import List
+from collections import defaultdict
+
 class Solution:
     def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:
-        g=[[False]*n for _ in range(n)]
-        for x,y in roads:
-            g[x][y]=g[y][x]=True
-
-        ans=0
+        connections = defaultdict(set)
+        for a, b in roads:
+            connections[a].add((a,b))
+            connections[b].add((a,b))
+        
+        max_rank = 0
+        
+        # Compare all pairs of different cities
         for i in range(n):
-            for j in range(n):
-                if i==j:
-                    continue
-
-                cur=0
-                for k in range(n):
-                    if k!=i and k!=j:
-                        if g[i][k]:
-                            cur+=1
-
-                        if g[j][k]:
-                             cur+=1
-
-                if g[i][j]:
-                    cur+=1
-
-                ans=max(cur,ans)
-
-        return ans             
+            for j in range(i + 1, n):
+                
+                intersection_length = len(connections[i] & connections[j])
+                network_rank = len(connections[i]) + len(connections[j]) - intersection_length
+                max_rank = max(max_rank, network_rank)
+        
+        return max_rank
