@@ -1,23 +1,17 @@
 class Solution:
-    def searchMatrix(self,matrix, target):
-        if not matrix or not matrix[0]:
-            return False
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        #flatten matrix
+        nums = [num for row in matrix for num in row]
         
-        # Flatten the matrix into a 1D sorted array
-        m, n = len(matrix), len(matrix[0])
-        
-        # Binary search on the 1D array
-        left, right = 0, m * n - 1
-        
-        while left <= right:
-            mid = (left + right) // 2
-            mid_value = matrix[mid // n][mid % n]
-            
-            if mid_value == target:
+        high = len(nums) -1
+        low = 0
+        while low <= high:
+            mid = (high+low)//2
+            if nums[mid] == target:
                 return True
-            elif mid_value < target:
-                left = mid + 1
+            elif nums[mid]< target:
+                low = mid + 1
             else:
-                right = mid - 1
-        
+                high = mid - 1
+
         return False
