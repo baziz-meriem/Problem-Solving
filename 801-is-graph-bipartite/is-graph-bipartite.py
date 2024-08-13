@@ -1,22 +1,24 @@
+from collections import deque
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
-        n=len(graph)
-        col=[-1]*n
-        for i in range(n):
-            if col[i]!=-1:
-                continue
-
-            q=deque()
-            q.append((i,0))
+        odd =[0] * len(graph)
+        
+        def bfs(i):
+            if odd[i]:
+                return True
+            q = deque([i])
+            odd[i] = -1
             while q:
-                node,color=q.popleft()
-                if col[node]==-1:
-                    col[node]=color
-                    for nx in graph[node]:
-                        q.append((nx,color^1))
+                i = q.popleft()
+                for nei in graph[i]:
+                    if odd[i] == odd[nei]:
+                        return False
+                    elif not odd[nei]:
+                        q.append(nei)
+                        odd[nei] = -1*odd[i]
+            return True
 
-
-                if col[node]!=color:
-                    return False
-
-        return True                        
+        for i in range(len(graph)):
+            if not bfs(i):
+                return False
+        return True
