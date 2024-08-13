@@ -1,16 +1,25 @@
+from typing import Optional
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
 class Solution:
     def maxAncestorDiff(self, root: Optional[TreeNode]) -> int:
-        maxVal = 0
+        def traverse(node, current_min, current_max):
+            if not node:
+                return current_max - current_min
 
-        queue = deque([(root, root.val, root.val)])
-        while queue:
-            curr, high, low = queue.popleft()
-            currVal = curr.val
-            diff1, diff2 = currVal - low, high - currVal
-            maxVal = max(maxVal, diff1, diff2)
+            current_min = min(current_min, node.val)
+            current_max = max(current_max, node.val)
 
-            if curr.left:
-                queue.append((curr.left, max(currVal, high), min(currVal, low)))
-            if curr.right:
-                queue.append((curr.right, max(currVal, high), min(currVal, low)))
-        return maxVal
+            left_diff = traverse(node.left, current_min, current_max)
+            right_diff = traverse(node.right, current_min, current_max)
+            
+            return max(left_diff, right_diff)
+        
+        
+        return traverse(root, root.val, root.val)
