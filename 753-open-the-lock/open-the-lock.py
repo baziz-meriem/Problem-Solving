@@ -1,38 +1,29 @@
-from queue import deque
+from collections import deque
+
 class Solution:
-
     def openLock(self, deadends: List[str], target: str) -> int:
-        queue = deque()
+        if "0000" in deadends:
+            return -1
         
-        deadends = set(deadends)
-        if "0000" not in deadends:
-            deadends.add("0000")
-            queue.append(("0000", 0))
-        while queue:
-            curr_combination, moves = queue.popleft()
-            if curr_combination == target:
-                return moves
-            
+        def children(val):
+            res=[]
             for i in range(4):
-                # move wheel at indx forward
-                new_combination = curr_combination[:i] + str((int(curr_combination[i])+1)%10) + curr_combination[i+1:]
-                if new_combination not in deadends:
-                    deadends.add(new_combination)
-                    queue.append((new_combination, moves+1))
-                # move wheel at indx backward
-                new_combination = curr_combination[:i] + str((int(curr_combination[i])-1)%10) + curr_combination[i+1:]
-                if new_combination not in deadends:
-                    deadends.add(new_combination)
-                    queue.append((new_combination, moves+1))
-        return -1
-
-
-
-
+                child1= val[:i] + str((int(val[i])+1) %10) + val[i+1:]
+                child2= val[:i] + str((int(val[i])-1+10) %10) + val[i+1:]
+                res.append(child1)
+                res.append(child2)
+            return res
             
-
-
-
-
-
         
+        visited=set(deadends)
+        q = deque()
+        q.append(["0000",0])
+        while q :
+            val,moves = q.popleft()
+            if val == target:
+                return moves
+            for child in children(val):
+                if child not in visited:
+                    visited.add(child)
+                    q.append([child,moves+1])
+        return -1
